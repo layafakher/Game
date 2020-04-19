@@ -3,9 +3,10 @@ package ir.ac.kntu.gamelogic;
 public class AssaultRifle extends Weapon{
     private static double attackRate=0.50;
     private static int damageRate=10;
-    private Bullet bullet;
+
 
     public AssaultRifle() {
+        super();
     }
 
     public AssaultRifle(Bullet bullet) {

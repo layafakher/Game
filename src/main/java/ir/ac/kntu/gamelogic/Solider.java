@@ -42,13 +42,12 @@ public class Solider {
         this.life = life;
     }
     public void setWeapon(){
-        Random random=new Random();
         SniperRifle sniperRifle=new SniperRifle();
         AssaultRifle assaultRifle=new AssaultRifle();
-        int n=random.nextInt(2)+1;
-        if (n==1){
+        int rand=RandomHelper.nextInt(10);
+        if (rand<=5){
             this.weapon=sniperRifle;
-        }else if (n==2){
+        }else if (rand>5){
             this.weapon=assaultRifle;
         }
     }
@@ -58,10 +57,19 @@ public class Solider {
 
     @Override
     public String toString() {
-        return "Solider{" +
-                " team=" + team +
-                ", number=" + number +
-                ", weapon=" + weapon +
+        return "Solider" + number +
+                "{ team=" + team +weapon.toString()+
                 '}';
+
+    }
+    public void attackAndDamageHandle(boolean zoomInEnabled, Bullet bullet) {
+        if (zoomInEnabled) {
+            if (Bullet.BULLET_5.equals(bullet)) {
+
+            } else {
+
+            }
+        } else {
+        }
     }
 }
