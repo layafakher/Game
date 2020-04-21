@@ -20,22 +20,62 @@ public class Methods {
             Main.orangeSolider.add(solider);
 
         }
+        for (i=0;i<=foreFront*2;i++){
+        int redNumber,orangeNumber;
+        redNumber=createRandomSolider1(foreFront);
+        orangeNumber=createRandomSolider2(foreFront);
+        if (redNumber!=-1 && orangeNumber!=-1){
         System.out.println("Game has started!");
-        int redNumber = RandomHelper.nextInt(foreFront-1);
-        int orangeNumber = RandomHelper.nextInt(foreFront-1);
         System.out.println("Fight between :");
         System.out.println(Main.orangeSolider.get(orangeNumber).toString());
         System.out.println(Main.redSolider.get(redNumber).toString());
         int round=0;
-        while (true){
-            round++;
-            startRound(Main.orangeSolider.get(orangeNumber),Main.redSolider.get(redNumber),round);
-            if (Main.redSolider.get(redNumber).getLife()<=0||Main.orangeSolider.get(orangeNumber).getLife()<=0)
-            {break;}
-            else {
-                continue;
+        if (fight(round,redNumber,orangeNumber)){
+            continue;
+        }
+        }else {
+            System.out.println("start a new Game!");
+            break;
+        }}
+    }
+    public static int createRandomSolider1(int foreFront){
+        int redNumber;
+        Solider []soliders=new Solider[2000];
+                Main.redSolider.toArray(soliders);
+                int i;
+        for (i=0;i<soliders.length;i++){
+            if (soliders[i].isAlive()){
+                break;
+            }else {
+                if (i==soliders.length-1){
+                    return -1;
+                }else {
+                    continue;
+                }
+
             }
         }
+            redNumber=RandomHelper.nextInt(foreFront-1);
+        return redNumber;
+    }
+    public static int createRandomSolider2(int foreFront){
+        int orangeNumber;
+        Solider []soliders=new Solider[2000];
+        Main.orangeSolider.toArray(soliders);
+        int i;
+        for (i=0;i<soliders.length;i++){
+            if (soliders[i].isAlive()){
+                break;
+            }else {
+                if (i==soliders.length-1){
+                    return -1;
+                }else {
+                    continue;
+                }
+            }
+        }
+        orangeNumber=RandomHelper.nextInt(foreFront-1);
+        return orangeNumber;
     }
 
     public static void startRound(Solider orangeSolider, Solider redSolider,int round) {
@@ -60,14 +100,34 @@ public class Methods {
         System.out.println("orange Solider"+orangeSolider.getNumber()+" new life : "+orangeSolider.getLife());
         }
         else {
-            if (redSolider.getLife()<=0)
+            if (redSolider.getLife()<=0){
                 System.out.println("red Solider"+redSolider.getNumber()+" died!");
-            if (orangeSolider.getLife()<=0)
+                redSolider.setAlive(false);
+            }
+            if (orangeSolider.getLife()<=0){
                 System.out.println("orange Solider"+orangeSolider.getNumber()+" died!");
+                orangeSolider.setAlive(false);
+            }
             System.out.println("/////////Game Over!\\\\\\\\\\\\\\");
 
         }
     }
-
-
+    public static boolean fight(int round,int redNumber,int orangeNumber){
+        boolean condition=false;
+        while (true){
+            round++;
+            startRound(Main.orangeSolider.get(orangeNumber),Main.redSolider.get(redNumber),round);
+            if (Main.redSolider.get(redNumber).getLife()<=0||Main.orangeSolider.get(orangeNumber).getLife()<=0)
+            {   condition=true;
+                break;
+            }
+            else {
+                continue;
+            }
+        }
+        return condition;
+    }
 }
+
+
+
